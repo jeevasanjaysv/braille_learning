@@ -50,6 +50,11 @@ public class QuizService {
 
     @Transactional(readOnly = true)
     public AnswerSubmissionResponse submitAnswer(Long quizId, Long questionId, String submittedAnswer) {
+        return checkAnswer(quizId, questionId, submittedAnswer);
+    }
+
+    @Transactional(readOnly = true)
+    public AnswerSubmissionResponse checkAnswer(Long quizId, Long questionId, String submittedAnswer) {
         findQuiz(quizId);
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question not found with id: " + questionId));
